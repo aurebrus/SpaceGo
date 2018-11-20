@@ -6,7 +6,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-const winW, winH int = 1200, 800
+const winW, winH int = 1200, 700
 
 func main() {
 	if err := sdl.Init(sdl.INIT_EVERYTHING); err != nil {
@@ -44,7 +44,7 @@ func main() {
 		renderer.Clear()
 
 		firstPlayer.draw(renderer)
-
+		firstPlayer.update()
 		renderer.Present()
 	}
 
