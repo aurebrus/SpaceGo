@@ -6,7 +6,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-const winW, winH = 1200, 700
+const winW, winH = 1400, 800
 
 func main() {
 	if err := sdl.Init(sdl.INIT_EVERYTHING); err != nil {
@@ -34,7 +34,7 @@ func main() {
 		return
 	}
 
-	alien, err := newAlien(renderer, winW/2.0, winH/2.0)
+	alien, err := newAlien(renderer, winW/2.0, winH/3.0)
 	if err != nil {
 		fmt.Println("Create new Alien", err)
 		return
