@@ -28,16 +28,9 @@ func main() {
 	}
 	defer renderer.Destroy()
 
-	img, err := sdl.LoadBMP("sprites/playercraft.bmp")
+	firstPlayer, err := newPlayer(renderer)
 	if err != nil {
-		fmt.Println("Init player: ", err)
-		return
-	}
-
-	playerTexture, err := renderer.CreateTextureFromSurface(img)
-	if err != nil {
-		fmt.Println("Init texture:", err)
-		return
+		fmt.Println("Create new Player:", err)
 	}
 
 	for {
@@ -49,9 +42,9 @@ func main() {
 		}
 		renderer.SetDrawColor(0, 0, 0, 0)
 		renderer.Clear()
-		renderer.Copy(playerTexture,
-			&sdl.Rect{X: 0, Y: 0, W: 115, H: 115},
-			&sdl.Rect{X: 0, Y: 0, W: 115, H: 115})
+
+		firstPlayer.draw(renderer)
+
 		renderer.Present()
 	}
 
