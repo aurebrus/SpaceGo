@@ -8,7 +8,7 @@ import (
 
 const (
 	playerSpeed = 0.35
-	playerSize  = 120
+	playerSize  = 110
 )
 
 type player struct {
@@ -30,15 +30,17 @@ func newPlayer(renderer *sdl.Renderer) (plr player, err error) {
 	}
 
 	plr.x = float64(winW) / 2
-	plr.y = float64(winH) - 150.0
+	plr.y = float64(winH) - playerSize
 	return plr, nil
 }
 
 func (plr *player) draw(renderer *sdl.Renderer) {
+	x := plr.x - playerSize/2
+	y := plr.y - playerSize/2
 
 	renderer.Copy(plr.texture,
 		&sdl.Rect{X: 0, Y: 0, W: 115, H: 115},
-		&sdl.Rect{X: int32(plr.x), Y: int32(plr.y), W: 110, H: 110})
+		&sdl.Rect{X: int32(x), Y: int32(y), W: 110, H: 110})
 }
 
 func (plr *player) update() {

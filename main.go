@@ -6,7 +6,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-const winW, winH int = 1200, 700
+const winW, winH = 1200, 700
 
 func main() {
 	if err := sdl.Init(sdl.INIT_EVERYTHING); err != nil {
@@ -31,6 +31,13 @@ func main() {
 	firstPlayer, err := newPlayer(renderer)
 	if err != nil {
 		fmt.Println("Create new Player:", err)
+		return
+	}
+
+	alien, err := newAlien(renderer, winW/2.0, winH/2.0)
+	if err != nil {
+		fmt.Println("Create new Alien", err)
+		return
 	}
 
 	for {
@@ -45,6 +52,7 @@ func main() {
 
 		firstPlayer.draw(renderer)
 		firstPlayer.update()
+		alien.draw(renderer)
 		renderer.Present()
 	}
 
