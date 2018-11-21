@@ -34,10 +34,18 @@ func main() {
 		return
 	}
 
-	alien, err := newAlien(renderer, winW/2.0, winH/3.0)
-	if err != nil {
-		fmt.Println("Create new Alien", err)
-		return
+	var aliens []alien
+	for i := 0; i < 6; i++ {
+		for j := 0; j < 3; j++ {
+			x := (float64(i)/5)*winH + (alienSize * 3)
+			y := float64(j)*alienSize + alienSize
+			alien, err := newAlien(renderer, x, y)
+			if err != nil {
+				fmt.Println("Create new Alien", err)
+				return
+			}
+			aliens = append(aliens, alien)
+		}
 	}
 
 	for {
@@ -52,7 +60,9 @@ func main() {
 
 		firstPlayer.draw(renderer)
 		firstPlayer.update()
-		alien.draw(renderer)
+		for _, alien := range aliens {
+			alien.draw(renderer)
+		}
 		renderer.Present()
 	}
 
