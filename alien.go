@@ -7,7 +7,8 @@ import (
 )
 
 const (
-	alienSize = 90
+	alienSize  = 90
+	alienSpeed = 0.5
 )
 
 type alien struct {
@@ -33,11 +34,11 @@ func newAlien(renderer *sdl.Renderer, x, y float64) (al alien, err error) {
 }
 
 func (al *alien) draw(renderer *sdl.Renderer) {
-
 	x := al.x - alienSize/2
 	y := al.y - alienSize/2
 
 	renderer.Copy(al.texture,
 		&sdl.Rect{X: 0, Y: 0, W: 90, H: 90},
 		&sdl.Rect{X: int32(x), Y: int32(y), W: 90, H: 90})
+
 }

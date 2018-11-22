@@ -28,7 +28,7 @@ func main() {
 	}
 	defer renderer.Destroy()
 
-	firstPlayer, err := newPlayer(renderer)
+	firstPlayer := newPlayer(renderer)
 	if err != nil {
 		fmt.Println("Create new Player:", err)
 		return
@@ -66,4 +66,18 @@ func main() {
 		renderer.Present()
 	}
 
+}
+
+func textureFromBMP(renderer *sdl.Renderer, filename string) *sdl.Texture {
+	img, err := sdl.LoadBMP(filename)
+	if err != nil {
+		panic(fmt.Errorf("loading renderer %v: %v", filename, err))
+	}
+	defer img.Free()
+
+	texture, err := renderer.CreateTextureFromSurface(img)
+	if err != nil {
+		panic(fmt.Errorf("loading texture %v: %v", filename, err))
+	}
+	return texture
 }
