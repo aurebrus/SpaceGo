@@ -14,11 +14,11 @@ type background struct {
 	x, y    float64
 }
 
-func newBackground(renderer *sdl.Renderer) (back background) {
+func newBackground(renderer *sdl.Renderer, x, y float64) (back background) {
 	back.texture = textureFromBMP(renderer, "sprites/background.bmp")
 
-	back.x = float64(winW) / 2
-	back.y = float64(winH) / 2
+	back.x = x
+	back.y = y
 	return back
 }
 
