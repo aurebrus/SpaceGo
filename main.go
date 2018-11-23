@@ -39,7 +39,7 @@ func main() {
 		for j := 0; j < 3; j++ {
 			x := (float64(i)/5)*winH + (alienSize * 3)
 			y := float64(j)*alienSize + alienSize
-			alien, err := newAlien(renderer, x, y)
+			alien := newAlien(renderer, x, y)
 			if err != nil {
 				fmt.Println("Create new Alien", err)
 				return
@@ -57,11 +57,13 @@ func main() {
 		}
 		renderer.SetDrawColor(0, 0, 0, 0)
 		renderer.Clear()
-
 		firstPlayer.draw(renderer)
 		firstPlayer.update()
 		for _, alien := range aliens {
 			alien.draw(renderer)
+		}
+		for i := 0; i < 18; i++ {
+			aliens[i].update()
 		}
 		renderer.Present()
 	}

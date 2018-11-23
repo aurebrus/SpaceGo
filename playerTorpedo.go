@@ -22,7 +22,7 @@ func (tor *playerTorpedo) draw(renderer sdl.Renderer) {
 	y := tor.y - playerTorpedoSize/2
 
 	renderer.Copy(tor.texture,
-		&sdl.Rect{X: 0, Y: 0, W: 90, H: 90},
+		&sdl.Rect{X: 0, Y: 0, W: playerTorpedoSize, H: playerTorpedoSize},
 		&sdl.Rect{X: int32(x), Y: int32(y), W: playerTorpedoSize, H: playerTorpedoSize})
 
 }

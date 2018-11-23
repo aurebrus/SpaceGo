@@ -1,14 +1,11 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/veandco/go-sdl2/sdl"
 )
 
 const (
-	alienSize  = 90
-	alienSpeed = 0.5
+	alienSize = 90
 )
 
 type alien struct {
@@ -16,21 +13,13 @@ type alien struct {
 	x, y    float64
 }
 
-func newAlien(renderer *sdl.Renderer, x, y float64) (al alien, err error) {
-	img, err := sdl.LoadBMP("sprites/aliencraft.bmp")
-	if err != nil {
-		return alien{}, fmt.Errorf("Init alien: %v", err)
-	}
-	defer img.Free()
+func newAlien(renderer *sdl.Renderer, x, y float64) (al alien) {
+	al.texture = textureFromBMP(renderer, "sprites/aliencraft.bmp")
 
-	al.texture, err = renderer.CreateTextureFromSurface(img)
-	if err != nil {
-		return alien{}, fmt.Errorf("Init player texutre: %v", err)
-	}
 	al.x = x
 	al.y = y
 
-	return al, nil
+	return al
 }
 
 func (al *alien) draw(renderer *sdl.Renderer) {
@@ -38,7 +27,18 @@ func (al *alien) draw(renderer *sdl.Renderer) {
 	y := al.y - alienSize/2
 
 	renderer.Copy(al.texture,
-		&sdl.Rect{X: 0, Y: 0, W: 90, H: 90},
-		&sdl.Rect{X: int32(x), Y: int32(y), W: 90, H: 90})
+		&sdl.Rect{X: 0, Y: 0, W: alienSize, H: alienSize},
+		&sdl.Rect{X: int32(x), Y: int32(y), W: alienSize, H: alienSize})
+}
+
+func (al *alien) update() {
+	alienSpeed := 0.4
+	al.x += alienSpeed
+
+	if al.x > 1150 {
+		alienSpeed = -alienSpeed
+	} else if al.x < 50 {
+		alienSpeed = -alienSpeed
+	}
 
 }
