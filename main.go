@@ -28,6 +28,8 @@ func main() {
 	}
 	defer renderer.Destroy()
 
+	backGround := newBackground(renderer)
+
 	firstPlayer := newPlayer(renderer)
 	if err != nil {
 		fmt.Println("Create new Player:", err)
@@ -57,6 +59,8 @@ func main() {
 		}
 		renderer.SetDrawColor(0, 0, 0, 0)
 		renderer.Clear()
+		backGround.draw(renderer)
+		backGround.update()
 		firstPlayer.draw(renderer)
 		firstPlayer.update()
 		for _, alien := range aliens {

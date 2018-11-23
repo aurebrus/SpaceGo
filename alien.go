@@ -34,10 +34,11 @@ func (al *alien) draw(renderer *sdl.Renderer) {
 func (al *alien) update() {
 	alienSpeed := 0.4
 	al.x += alienSpeed
+
 	if al.x > 1400 {
-		al.x = 2 * (-alienSpeed)
+		al.x = 2 * (alienSpeed)
 	} else if al.x < 0 {
-		al.x = -alienSpeed
+		al.x = 3 * (-alienSpeed)
 	}
 
 }
