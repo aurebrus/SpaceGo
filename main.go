@@ -28,8 +28,19 @@ func main() {
 	}
 	defer renderer.Destroy()
 
-	backGround := newBackground(renderer)
-
+	var backgrounds []background
+	for i := 0; i < 1; i++ {
+		for j := 0; j < 3; j++ {
+			y := (float64(j)/2)*winH + (300)
+			x := float64(i) + winH
+			background := newBackground(renderer, x, y)
+			if err != nil {
+				fmt.Println("Create new background", err)
+				return
+			}
+			backgrounds = append(backgrounds, background)
+		}
+	}
 	firstPlayer := newPlayer(renderer)
 	if err != nil {
 		fmt.Println("Create new Player:", err)
@@ -59,8 +70,12 @@ func main() {
 		}
 		renderer.SetDrawColor(0, 0, 0, 0)
 		renderer.Clear()
-		backGround.draw(renderer)
-		backGround.update()
+		for _, background := range backgrounds {
+			background.draw(renderer)
+		}
+		for i := 0; i < 3; i++ {
+			backgrounds[i].update()
+		}
 		firstPlayer.draw(renderer)
 		firstPlayer.update()
 		for _, alien := range aliens {
