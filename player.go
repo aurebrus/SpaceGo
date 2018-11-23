@@ -1,17 +1,22 @@
 package main
 
 import (
+	"math"
+	"time"
+
 	"github.com/veandco/go-sdl2/sdl"
 )
 
 const (
 	playerSpeed = 0.8
 	playerSize  = 110
+	shotDelay   = time.Millisecond * 1000
 )
 
 type player struct {
-	texture *sdl.Texture
-	x, y    float64
+	texture  *sdl.Texture
+	x, y     float64
+	lastShot time.Time
 }
 
 func newPlayer(renderer *sdl.Renderer) (plr player) {
@@ -41,5 +46,20 @@ func (plr *player) update() {
 		if plr.x < winW-playerSize {
 			plr.x += playerSpeed
 		}
+	}
+	if keys[sdl.SCANCODE_SPACE] == 1 {
+		if time.Since(plr.lastShot) >= shotDelay {
+			plr.torpedoShoot()
+			plr.lastShot = time.Now()
+		}
+	}
+}
+
+func (plr *player) torpedoShoot() {
+	if tor, ok := torpedoFromPool(); ok {
+		tor.active = true
+		tor.x = plr.x
+		tor.y = plr.y
+		tor.angle = 270 * (math.Pi / 180)
 	}
 }

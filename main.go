@@ -41,6 +41,7 @@ func main() {
 			backgrounds = append(backgrounds, background)
 		}
 	}
+
 	firstPlayer := newPlayer(renderer)
 	if err != nil {
 		fmt.Println("Create new Player:", err)
@@ -61,6 +62,7 @@ func main() {
 		}
 	}
 
+	initTorpedoPool(renderer)
 	for {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch event.(type) {
@@ -84,9 +86,12 @@ func main() {
 		for i := 0; i < 18; i++ {
 			aliens[i].update()
 		}
+		for _, tor := range torpedoPool {
+			tor.draw(renderer)
+			tor.update()
+		}
 		renderer.Present()
 	}
-
 }
 
 func textureFromBMP(renderer *sdl.Renderer, filename string) *sdl.Texture {
