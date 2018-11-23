@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	playerSpeed = 0.5
+	playerSpeed = 0.8
 	playerSize  = 110
 )
 
@@ -27,7 +27,7 @@ func (plr *player) draw(renderer *sdl.Renderer) {
 	y := plr.y - playerSize/2
 
 	renderer.Copy(plr.texture,
-		&sdl.Rect{X: 0, Y: 0, W: 110, H: 110},
+		&sdl.Rect{X: 0, Y: 0, W: playerSize, H: playerSize},
 		&sdl.Rect{X: int32(x), Y: int32(y), W: playerSize, H: playerSize})
 }
 
