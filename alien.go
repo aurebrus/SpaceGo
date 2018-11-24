@@ -8,8 +8,7 @@ import (
 )
 
 const (
-	alienSize  = 90
-	shotADelay = time.Millisecond * 7000
+	alienSize = 90
 )
 
 type alien struct {
@@ -44,10 +43,6 @@ func (al *alien) update() {
 		al.x = 2 * (alienSpeed)
 	} else if al.x < 0 {
 		al.x = 3 * (-alienSpeed)
-	}
-	if time.Since(al.lastShot) >= shotADelay {
-		al.torpedoShoot()
-		al.lastShot = time.Now()
 	}
 }
 

@@ -8,7 +8,7 @@ import (
 
 const (
 	alienTorpedoSize = 30
-	torpedoASpeed    = 4
+	torpedoASpeed    = 2
 )
 
 type alienTorpedo struct {
