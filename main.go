@@ -63,6 +63,8 @@ func main() {
 	}
 
 	initTorpedoPool(renderer)
+	initATorpedoPool(renderer)
+
 	for {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch event.(type) {
@@ -89,6 +91,10 @@ func main() {
 		for _, tor := range torpedoPool {
 			tor.draw(renderer)
 			tor.update()
+		}
+		for _, torA := range torpedoAPool {
+			torA.draw(renderer)
+			torA.update()
 		}
 		renderer.Present()
 	}
