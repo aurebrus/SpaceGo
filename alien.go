@@ -1,6 +1,9 @@
 package main
 
 import (
+	"math"
+	"time"
+
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -9,8 +12,9 @@ const (
 )
 
 type alien struct {
-	texture *sdl.Texture
-	x, y    float64
+	texture  *sdl.Texture
+	x, y     float64
+	lastShot time.Time
 }
 
 func newAlien(renderer *sdl.Renderer, x, y float64) (al alien) {
@@ -40,5 +44,13 @@ func (al *alien) update() {
 	} else if al.x < 0 {
 		al.x = 3 * (-alienSpeed)
 	}
+}
 
+func (al *alien) torpedoShoot() {
+	if tor, ok := torpedoAFromPool(); ok {
+		tor.active = true
+		tor.x = al.x
+		tor.y = al.y
+		tor.angle = 270 * (math.Pi / 180)
+	}
 }

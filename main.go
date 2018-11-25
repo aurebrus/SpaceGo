@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
 
 const winW, winH = 1400, 800
+const shotADelay = time.Millisecond * 7000
 
 func main() {
 	if err := sdl.Init(sdl.INIT_EVERYTHING); err != nil {
@@ -63,6 +65,8 @@ func main() {
 	}
 
 	initTorpedoPool(renderer)
+	initATorpedoPool(renderer)
+
 	for {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch event.(type) {
@@ -85,10 +89,19 @@ func main() {
 		}
 		for i := 0; i < 18; i++ {
 			aliens[i].update()
+			if time.Since(aliens[i].lastShot) >= shotADelay {
+				aliens[i].lastShot = time.Now()
+				aliens[i].torpedoShoot()
+			}
+
 		}
 		for _, tor := range torpedoPool {
 			tor.draw(renderer)
 			tor.update()
+		}
+		for _, torA := range torpedoAPool {
+			torA.draw(renderer)
+			torA.update()
 		}
 		renderer.Present()
 	}
